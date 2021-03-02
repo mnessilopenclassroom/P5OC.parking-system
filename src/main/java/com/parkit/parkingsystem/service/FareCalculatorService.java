@@ -13,6 +13,7 @@ import static com.parkit.parkingsystem.dao.TicketDAO.countByVehicleRegNumber;
 public class FareCalculatorService {
 
 
+
     public void calculateFare(Ticket ticket) throws Exception {
         if ((ticket.getOutTime() == null) || (ticket.getOutTime().isBefore(ticket.getInTime()))) {
             throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
