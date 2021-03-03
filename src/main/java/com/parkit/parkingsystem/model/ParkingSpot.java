@@ -11,6 +11,7 @@ public class ParkingSpot {
         this.number = number;
         this.parkingType = parkingType;
         this.isAvailable = isAvailable;
+
     }
 
     public int getId() {
@@ -41,6 +42,7 @@ public class ParkingSpot {
 
         isAvailable = available;
     }
+
 
     @Override
     public boolean equals(Object o) {

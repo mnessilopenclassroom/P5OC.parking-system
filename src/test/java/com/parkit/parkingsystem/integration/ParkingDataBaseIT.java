@@ -9,33 +9,29 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
 class ParkingDataBaseIT {
 
-    private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+    private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private static ParkingSpotDAO parkingSpotDAO;
     private static TicketDAO ticketDAO;
     private static ParkingSpot parkingSpot;
     private static ParkingService parkingService;
     private static DataBasePrepareService dataBasePrepareService;
-    private static String vehicleRegNumber = "ABCDEF";
+    private static final String vehicleRegNumber = "ABCDEF";
 
     @Mock
     private static InputReaderUtil inputReaderUtil;
@@ -58,10 +54,7 @@ class ParkingDataBaseIT {
         ticketDAO.dataBaseConfig = dataBaseTestConfig;
     }
 
-    @AfterAll
-    private static void tearDown(){
 
-    }
 
     @Test
     void testParkingACar(){
@@ -98,7 +91,7 @@ class ParkingDataBaseIT {
         Thread.sleep(2000);
         parkingService.processExitingVehicle();
 
-        assertNotNull(ticket.getPrice());
+        assertEquals(0,ticket.getPrice());
         assertNotNull(ticket.getOutTime());
     }
 

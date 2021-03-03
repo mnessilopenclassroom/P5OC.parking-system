@@ -2,6 +2,7 @@ package com.parkit.parkingsystem.model;
 
 import java.time.LocalDateTime;
 
+
 public class Ticket {
     private int id;
     private ParkingSpot parkingSpot;
@@ -9,6 +10,8 @@ public class Ticket {
     private double price;
     private LocalDateTime inTime;
     private LocalDateTime outTime;
+
+
 
     public int getId() {
 
