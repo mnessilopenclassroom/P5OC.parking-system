@@ -5,15 +5,22 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
+
+
+/**
+ * this class is used to configure a connection with the database prod mysql
+ */
 public class DataBaseConfig {
+
+
 
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
 
+    // make the connexion with password and user
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/prod?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","rootroot");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/prod?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootroot");
     }
 
     public void closeConnection(Connection con){

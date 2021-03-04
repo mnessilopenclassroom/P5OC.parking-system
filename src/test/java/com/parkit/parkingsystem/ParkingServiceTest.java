@@ -21,9 +21,13 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-
+/**
+ * this class is used to make unitary tests of the app service
+ */
 @ExtendWith(MockitoExtension.class)
 class ParkingServiceTest {
+
+
 
     private static ParkingService parkingService;
 
@@ -52,20 +56,20 @@ class ParkingServiceTest {
 
     @Test
     void processIncomingVehicleTest() {
+        //Arrange
         when(inputReaderUtil.readSelection()).thenReturn(1);
-
         when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
-
         when(ticketDAO.saveTicket(any(Ticket.class))).thenReturn(true);
-
+        //Act
         parkingService.processIncomingVehicle();
-
+        //Assert
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
         verify(ticketDAO, times(1)).saveTicket(any(Ticket.class));
     }
 
     @Test
-    void processExitingVehicleTest() {
+    void processExitingVehicleTest() throws Exception {
+        //Arrange
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
         Ticket ticket = new Ticket();
         ticket.setInTime(LocalDateTime.now().minusMinutes(60));
@@ -74,16 +78,16 @@ class ParkingServiceTest {
         ticket.setVehicleRegNumber("ABCDEF");
 
         when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
-
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
-
-
+        //Act
         parkingService.processExitingVehicle();
+        //Assert
         verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
     }
 
     @Test
     void ProcessExitingWith5PerCentOff() throws Exception {
+        //Arrange
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
         Ticket ticket = new Ticket();
         ticket.setInTime(LocalDateTime.now().minusMinutes(90));
@@ -96,8 +100,9 @@ class ParkingServiceTest {
         when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
 
         fareCalculatorService.oldTicket = 3;
-
+        //Act
         parkingService.processExitingVehicle();
+        //Assert
         assertEquals(0.95, ticket.getPrice());
     }
 }

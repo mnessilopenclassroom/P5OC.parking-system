@@ -2,8 +2,13 @@ package com.parkit.parkingsystem.model;
 
 import java.time.LocalDateTime;
 
-
+/**
+ * this class contains variables needed on a ticket
+ * getters and setters to access this variables
+ */
 public class Ticket {
+
+
     private int id;
     private ParkingSpot parkingSpot;
     private String vehicleRegNumber;

@@ -5,12 +5,15 @@ import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+/**
+ * This class is used load the interface of the app and the menu
+ */
 public class InteractiveShell {
+
 
     private static final Logger logger = LogManager.getLogger("InteractiveShell");
 
-    public static void loadInterface(){
+    public static void loadInterface() throws Exception {
         logger.info("App initialized!!!");
         System.out.println("Welcome to Parking System!");
 

@@ -21,9 +21,13 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-
+/**
+ * this class is used to make integration tests of the app service
+ */
 @ExtendWith(MockitoExtension.class)
 class ParkingDataBaseIT {
+
+
 
     private static final DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private static ParkingSpotDAO parkingSpotDAO;
@@ -54,45 +58,43 @@ class ParkingDataBaseIT {
         ticketDAO.dataBaseConfig = dataBaseTestConfig;
     }
 
-
-
     @Test
     void testParkingACar(){
+        //Arrange
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
-
         //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
-
         Ticket ticket = new Ticket();
         ticket.setParkingSpot(parkingSpot);
         ticket.setVehicleRegNumber(vehicleRegNumber);
         ticket.setPrice(0);
         ticket.setInTime(LocalDateTime.now());
+        //Act
         parkingService.processIncomingVehicle();
-
-        assertNotNull(ticketDAO.getTicket("ABCDEF"));
-        assertFalse(parkingSpot.isAvailable());
+        //Assert
+        assertNotNull(ticketDAO.getTicket("ABCDEF"));//make sure that a ticket is saved
+        assertFalse(parkingSpot.isAvailable());//availabbility updated
     }
 
     @Test
     void testParkingLotExit() throws Exception{
+        //Arrange
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-
         //TODO: check that the fare generated and out time are populated correctly in the database
-
         Ticket ticket = new Ticket();
         ticket.setParkingSpot(parkingSpot);
         ticket.setVehicleRegNumber(vehicleRegNumber);
         ticket.setInTime(LocalDateTime.now());
         ticket.setOutTime(LocalDateTime.now().plusMinutes(29));
+        //Act
         parkingService.processIncomingVehicle();
 
         Thread.sleep(2000);
         parkingService.processExitingVehicle();
-
-        assertEquals(0,ticket.getPrice());
-        assertNotNull(ticket.getOutTime());
+        //Arrange
+        assertEquals(0,ticket.getPrice());//fare generated ok
+        assertNotNull(ticket.getOutTime());//outtime generated ok
     }
 
 }

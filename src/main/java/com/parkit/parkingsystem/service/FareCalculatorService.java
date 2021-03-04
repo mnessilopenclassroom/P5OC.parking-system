@@ -1,7 +1,6 @@
 package com.parkit.parkingsystem.service;
 
 import com.parkit.parkingsystem.constants.Fare;
-import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.model.Ticket;
 
 import java.time.LocalDateTime;
@@ -12,12 +11,19 @@ import static com.parkit.parkingsystem.dao.TicketDAO.countByVehicleRegNumber;
 
 public class FareCalculatorService {
 
+
+
     public static int oldTicket;
     public double price;
-
+    /**
+     * this class is used to calculate the fare take a ticket as parameter to get infos t calculate
+     *
+     * @param ticket
+     */
     public void calculateFare (Ticket ticket) throws Exception {
+        //make sure that the parking time is ok
         if ((ticket.getOutTime() == null) || (ticket.getOutTime().isBefore(ticket.getInTime()))) {
-            throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
+            throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime());
         }
 
         LocalDateTime inHour = ticket.getInTime();
@@ -66,7 +72,7 @@ public class FareCalculatorService {
                     throw new IllegalArgumentException("Unkown Parking Type");
             }
         }
-
+                // give 5% reduction to regular customers
             if (oldTicket > 0){
                 price = price*0.95;
             }

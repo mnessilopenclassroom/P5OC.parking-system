@@ -14,14 +14,18 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
-
+/**
+ * this class contains all the methods to deal with  tickets informations between org and  database
+ */
 public class TicketDAO {
+
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");
 
     public static DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     public boolean saveTicket(Ticket ticket) {
+        // save the ticket when process incoming vehicle
         Connection con = null;
         try {
 
@@ -46,6 +50,7 @@ public class TicketDAO {
     }
 
     public Ticket getTicket(String vehicleRegNumber) {
+        // get ticket infos from database before updating ticket
         Connection con = null;
         Ticket ticket = null;
         try {
@@ -79,6 +84,7 @@ public class TicketDAO {
     }
 
     public boolean updateTicket(Ticket ticket) {
+        // update ticket with infos coming from database before exiting
         Connection con = null;
         try {
 
@@ -99,6 +105,7 @@ public class TicketDAO {
     }
 
     public static int countByVehicleRegNumber(String vehicleRegNumber) throws Exception {
+        // used to get reccurence of the vehicle with a querie to check the saved ticket table on the database
         int result;
         try (Connection con = dataBaseConfig.getConnection()) {
             final PreparedStatement ps = con.prepareStatement(DBConstants.GET_COUNT_PASSAGES);

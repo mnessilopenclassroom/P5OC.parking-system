@@ -4,7 +4,13 @@ import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 
 import java.sql.Connection;
 
+/**
+ * this class is used to clear the database used for the integration tests
+ */
+
 public class DataBasePrepareService {
+
+
 
     DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
 

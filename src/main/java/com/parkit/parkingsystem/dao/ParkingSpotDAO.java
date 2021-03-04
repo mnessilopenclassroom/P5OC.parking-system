@@ -11,12 +11,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * this class contains all the methods to deal with  parkingspots informations between org and database
+ */
 public class ParkingSpotDAO {
+
+
     private static final Logger logger = LogManager.getLogger("ParkingSpotDAO");
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
     public int getNextAvailableSlot(ParkingType parkingType){
+        //send a querie sql to get the next available slot
         Connection con = null;
         int result=-1;
         try {

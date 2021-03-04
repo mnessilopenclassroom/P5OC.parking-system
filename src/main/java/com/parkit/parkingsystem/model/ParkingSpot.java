@@ -1,8 +1,11 @@
 package com.parkit.parkingsystem.model;
 
 import com.parkit.parkingsystem.constants.ParkingType;
-
+/**
+ * this class contains variables needed on a parkingspot and getters and setters to access this variables
+ */
 public class ParkingSpot {
+
     private int number;
     private ParkingType parkingType;
     private boolean isAvailable;
